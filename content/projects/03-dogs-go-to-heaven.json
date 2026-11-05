@@ -1,0 +1,77 @@
+{
+	"id": "dogs-go-to-heaven",
+	"slug": "dogs-go-to-heaven",
+	"title": "Все псы попадают в рай",
+	"summary": "А куда переехать людям? Сервис, который помогает сравнить 348 городов и найти место под свой бюджет, климат и ритм жизни.",
+	"publishedAt": "2026-11-05",
+	"order": 3,
+	"pinned": false,
+	"cover": {
+		"src": "/images/projects/dogs-go-to-heaven/cover.webp",
+		"alt": "Обложка проекта Все псы попадают в рай",
+		"width": 1000,
+		"height": 1000
+	},
+	"links": [
+		{
+			"kind": "project",
+			"label": "Открыть проект",
+			"href": "https://dogs-go-to-heaven.vercel.app/"
+		},
+		{
+			"kind": "source",
+			"label": "Исходники",
+			"href": "https://github.com/GameDevCompanyName/DogsGoToHeaven"
+		}
+	],
+	"body": [
+		{
+			"type": "paragraph",
+			"text": "«Все псы попадают в рай» — мой сервис для выбора города для переезда. Он сравнивает 348 городов по стоимости жизни, климату, безопасности, легализации и другим важным параметрам."
+		},
+		{
+			"type": "image",
+			"src": "/images/projects/dogs-go-to-heaven/start.webp",
+			"alt": "Стартовый экран сервиса выбора города",
+			"caption": "Отправная точка для поиска своего места.",
+			"width": 1600,
+			"height": 1054
+		},
+		{
+			"type": "heading",
+			"text": "У каждого свой рай"
+		},
+		{
+			"type": "paragraph",
+			"text": "Можно выбрать готовый сценарий или настроить приоритеты под себя — рейтинг сразу пересчитается."
+		},
+		{
+			"type": "image",
+			"src": "/images/projects/dogs-go-to-heaven/quiz.webp",
+			"alt": "Настройка предпочтений для выбора города",
+			"caption": "Важные именно тебе критерии меняют результат.",
+			"width": 1600,
+			"height": 1054
+		},
+		{
+			"type": "paragraph",
+			"text": "На карте удобно искать варианты, в карточках — разбираться в их плюсах и минусах, а в сравнении — сопоставлять города между собой. Есть оценка бюджета и обзоры условий переезда для россиян."
+		},
+		{
+			"type": "image",
+			"src": "/images/projects/dogs-go-to-heaven/city.webp",
+			"alt": "Подробная карточка города с показателями",
+			"caption": "Город в деталях.",
+			"width": 1600,
+			"height": 1054
+		},
+		{
+			"type": "image",
+			"src": "/images/projects/dogs-go-to-heaven/compare.webp",
+			"alt": "Сравнение нескольких городов по выбранным критериям",
+			"caption": "Несколько вариантов рядом — выбирать немного проще.",
+			"width": 1600,
+			"height": 1054
+		}
+	]
+}

@@ -1,0 +1,10 @@
+package-lock.json
+node_modules
+.svelte-kit
+build
+.vercel
+.superpowers
+artifacts
+test-results
+playwright-report
+static
