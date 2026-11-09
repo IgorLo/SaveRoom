@@ -27,7 +27,9 @@
 
 <style>
 	.intro {
-		padding: 64px 0 56px;
+		margin-block: 24px;
+		padding: 40px 32px;
+		background: color-mix(in srgb, var(--bg) 68%, transparent);
 	}
 	.about {
 		display: flex;
@@ -61,7 +63,8 @@
 	}
 	@media (max-width: 700px) {
 		.intro {
-			padding: 40px 0;
+			margin-block: 18px;
+			padding: 24px 18px;
 		}
 		.about {
 			align-items: flex-start;
