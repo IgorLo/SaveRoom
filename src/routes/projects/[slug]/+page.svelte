@@ -4,6 +4,7 @@
 	import { AsciiDivider, AsciiLink } from '@/shared/ui';
 	import { formatDate } from '@/shared/lib';
 	import type { PageData } from './$types';
+	import { Link } from 'svelte-ascii-ui';
 	let { data }: { data: PageData } = $props();
 </script>
 
@@ -19,7 +20,7 @@
 </svelte:head>
 
 <div class="article-page">
-	<a href={resolve('/')} class="back">[ ← Все проекты ]</a>
+	<Link href={resolve('/')} class="back">[ ← Все проекты ]</Link>
 	<article>
 		<header class="article-heading">
 			<p class="eyebrow">ЗАПИСЬ ИЗ КОМНАТЫ СОХРАНЕНИЯ</p>
@@ -41,7 +42,7 @@
 						/>{/each}
 				</div>{/if}
 			<AsciiDivider label="СОХРАНЕНО" />
-			<a href={resolve('/')} class="back bottom">[ ← Все проекты ]</a>
+			<Link href={resolve('/')} class="back bottom">[ ← Все проекты ]</Link>
 		</div>
 	</article>
 </div>
@@ -50,15 +51,15 @@
 	.article-page {
 		padding-top: 36px;
 	}
-	.back {
+	:global(.back) {
 		display: inline-block;
 		padding-block: 12px;
 		color: var(--muted);
 		font-size: 0.75rem;
 		text-decoration: none;
 	}
-	.back:hover {
-		color: var(--warm);
+	:global(.back:hover) {
+		color: var(--accent);
 	}
 	.article-heading {
 		text-align: center;
@@ -94,7 +95,7 @@
 		gap: 20px;
 		margin: 40px 0;
 	}
-	.bottom {
+	:global(.bottom) {
 		margin-top: 24px;
 	}
 	@media (max-width: 700px) {

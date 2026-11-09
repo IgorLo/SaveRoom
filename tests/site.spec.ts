@@ -2,7 +2,19 @@ import { expect, test } from '@playwright/test';
 
 test('catalog exposes four real projects and only available destinations', async ({ page }) => {
 	await page.goto('/');
-	await expect(page.getByRole('heading', { name: 'Save Room', exact: true })).toBeVisible();
+	await expect(page.getByRole('heading', { name: 'Привет, я Игорь.', exact: true })).toBeVisible();
+	await expect(page.getByRole('link', { name: 'Save Room — главная' })).toBeVisible();
+	await expect(page.locator('.ascii-theme')).toHaveAttribute('data-palette', 'phosphor');
+	await expect(page.locator('article.project-card .aui-frame')).toHaveCount(4);
+	await expect(page.locator('article.project-card .aui-button')).toHaveCount(4);
+	await expect(page.getByText('МОИ ПРОЕКТЫ', { exact: true })).toBeVisible();
+	for (const removed of [
+		'Личное хранилище хороших затей',
+		'Место для того, что я делаю.',
+		'От идеи до «оно работает»'
+	]) {
+		await expect(page.getByText(removed, { exact: true })).toHaveCount(0);
+	}
 	await expect(page.locator('article.project-card')).toHaveCount(4);
 	await expect(page.getByRole('navigation', { name: 'Мои ссылки' }).getByRole('link')).toHaveCount(
 		5

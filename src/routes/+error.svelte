@@ -1,14 +1,21 @@
 <script lang="ts">
 	import { page } from '$app/state';
 	import { resolve } from '$app/paths';
+	import { EmptyState, Link } from 'svelte-ascii-ui';
 </script>
 
 <svelte:head><title>{page.status} — Save Room</title></svelte:head>
 <section>
-	<p aria-hidden="true">[ {page.status} ]</p>
-	<h1>Кажется, эта комната пуста.</h1>
-	<p>Здесь пока ничего не сохранено. Вернёмся к проектам?</p>
-	<a href={resolve('/')}>[ ← Все проекты ]</a>
+	<h1>{page.status} — {page.status === 404 ? 'страница не найдена' : 'что-то пошло не так'}</h1>
+	<EmptyState
+		title={page.status === 404 ? 'Кажется, эта комната пуста.' : 'Не удалось открыть страницу.'}
+		description={page.status === 404
+			? 'Здесь пока ничего не сохранено. Вернёмся к проектам?'
+			: 'Попробуйте вернуться к проектам.'}
+		symbol={`[ ${page.status} ]`}
+	>
+		{#snippet actions()}<Link href={resolve('/')} button label="← Все проекты" />{/snippet}
+	</EmptyState>
 </section>
 
 <style>
@@ -19,14 +26,5 @@
 	h1 {
 		font-size: clamp(1.8rem, 4vw, 3rem);
 		font-weight: 500;
-	}
-	p {
-		color: var(--muted);
-		line-height: 1.8;
-	}
-	a {
-		display: inline-block;
-		margin-top: 24px;
-		padding-block: 12px;
 	}
 </style>

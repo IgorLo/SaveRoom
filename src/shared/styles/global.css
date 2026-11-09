@@ -8,13 +8,6 @@
 	color: #e5d6be;
 	background: #242522;
 	font-synthesis: none;
-	--bg: #242522;
-	--panel: #2b2c27;
-	--ink: #e5d6be;
-	--muted: #aaa796;
-	--accent: #c4c598;
-	--line: #56574a;
-	--warm: #d3a068;
 	color-scheme: dark;
 }
 * {
@@ -27,6 +20,10 @@ html {
 body {
 	margin: 0;
 	min-width: 280px;
+}
+.ascii-theme {
+	min-height: 100vh;
+	background: var(--bg);
 }
 body:has(dialog[open]) {
 	overflow: hidden;
@@ -58,12 +55,12 @@ img {
 	max-width: 100%;
 	display: block;
 }
-::selection {
+.ascii-theme ::selection {
 	color: var(--bg);
 	background: var(--accent);
 }
 :focus-visible {
-	outline: 2px solid var(--warm);
+	outline: 2px solid var(--text);
 	outline-offset: 6px;
 }
 .shell {
@@ -85,7 +82,7 @@ img {
 	left: 20px;
 	z-index: 100;
 	padding: 14px;
-	background: var(--ink);
+	background: var(--text);
 	color: var(--bg);
 }
 .skip-link:focus {
@@ -105,15 +102,7 @@ img {
 	font-weight: 500;
 }
 .wordmark span {
-	color: var(--warm);
-}
-.header-note {
-	font-size: 0.68rem;
-	color: var(--muted);
-}
-.status-dot {
-	color: var(--accent);
-	margin-right: 9px;
+	color: var(--warning);
 }
 .site-footer {
 	margin-top: 56px;
@@ -129,7 +118,7 @@ img {
 	text-decoration: none;
 }
 .site-footer a:hover {
-	color: var(--ink);
+	color: var(--text);
 }
 @media (max-width: 700px) {
 	.shell {
@@ -137,11 +126,6 @@ img {
 	}
 	.site-header {
 		padding-block: 22px;
-	}
-	.header-note {
-		font-size: 0.6rem;
-		text-align: right;
-		max-width: 140px;
 	}
 	.site-footer {
 		flex-direction: column;

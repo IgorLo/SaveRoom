@@ -5,10 +5,11 @@
 </script>
 
 <section id="projects" aria-labelledby="projects-heading">
-	<AsciiDivider label="КОЛЛЕКЦИЯ" />
+	<AsciiDivider label="МОИ ПРОЕКТЫ" />
 	<div class="section-heading">
-		<h2 id="projects-heading">Проекты<span> /{String(projects.length).padStart(2, '0')}</span></h2>
-		<p>От идеи до «оно работает»</p>
+		<h2 id="projects-heading">
+			Проекты <span>/{String(projects.length).padStart(2, '0')}</span>
+		</h2>
 	</div>
 	{#each projects as project, index (project.id)}
 		<ProjectCard {project} reverse={index % 2 === 1} number={index + 1} />
@@ -19,32 +20,19 @@
 
 <style>
 	.section-heading {
-		display: flex;
-		align-items: baseline;
-		justify-content: space-between;
-		flex-wrap: wrap;
-		gap: 12px;
-		padding-top: 28px;
+		padding-top: 26px;
 	}
 	h2 {
-		font-size: 1.2rem;
-		font-weight: 500;
+		font-size: 1.25rem;
 		margin: 0;
-		letter-spacing: -0.04em;
 	}
 	h2 span {
-		color: var(--warm);
+		color: var(--accent);
 		font-size: 0.8rem;
 		margin-left: 12px;
 	}
-	.section-heading p {
-		font-size: 0.68rem;
-		color: var(--muted);
-		margin: 0;
-	}
 	.end-note {
 		padding-top: 44px;
-		margin: 0;
 		text-align: center;
 		font-size: 0.75rem;
 		color: var(--muted);

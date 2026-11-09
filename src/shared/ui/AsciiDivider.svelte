@@ -1,32 +1,26 @@
 <script lang="ts">
+	import { Separator } from 'svelte-ascii-ui';
 	let { label = '' }: { label?: string } = $props();
 </script>
 
-<div class="divider" aria-hidden="true">
-	<span>+</span><i></i>{#if label}<span class="label">{label}</span><i class="short"></i>{/if}<span
-		>+</span
-	>
+<div class="divider">
+	<div class="line"><Separator label={label || undefined} /></div>
+	{#if label}<span aria-hidden="true">{label}</span>{/if}
 </div>
 
 <style>
 	.divider {
 		display: flex;
 		align-items: center;
-		gap: 0;
-		color: var(--line);
-		height: 14px;
-	}
-	i {
-		flex: 1;
-		border-top: 1px dashed var(--line);
-	}
-	.short {
-		flex: 0 0 30px;
-	}
-	.label {
-		margin-inline: 14px;
+		gap: 16px;
 		color: var(--muted);
-		font-size: 0.62rem;
-		letter-spacing: 0.1em;
+		font-size: 0.72rem;
+		letter-spacing: 0.08em;
+	}
+	.divider span {
+		flex: none;
+	}
+	.line {
+		flex: 1;
 	}
 </style>

@@ -4,45 +4,58 @@
 	import { formatDate } from '@/shared/lib';
 	import ProjectCover from './ProjectCover.svelte';
 	import type { ProjectSummary } from '../model/project';
+	import { Link, Panel } from 'svelte-ascii-ui';
 	let { project, reverse, number }: { project: ProjectSummary; reverse: boolean; number: number } =
 		$props();
 	let primaryLink = $derived(project.links.find((link) => link.kind === 'project'));
 </script>
 
 <article class={['project-card', { reverse }]} data-project={project.slug}>
-	<a
-		class="cover-link"
-		href={resolve('/projects/[slug]', { slug: project.slug })}
-		aria-label={`О проекте: ${project.title}`}
-		><ProjectCover image={project.cover} eager={number === 1} /></a
-	>
-	<div class="copy">
-		<div class="meta">
-			<span class="index">/{String(number).padStart(2, '0')}</span><time
-				datetime={project.publishedAt}>{formatDate(project.publishedAt)}</time
-			>{#if project.pinned}<span>↑ закреплено</span>{/if}
+	<Panel class="project-surface">
+		<a
+			class="cover-link"
+			href={resolve('/projects/[slug]', { slug: project.slug })}
+			aria-label={`О проекте: ${project.title}`}
+			><ProjectCover image={project.cover} eager={number === 1} /></a
+		>
+		<div class="copy">
+			<div class="meta">
+				<span class="index">/{String(number).padStart(2, '0')}</span><time
+					datetime={project.publishedAt}>{formatDate(project.publishedAt)}</time
+				>{#if project.pinned}<span>↑ закреплено</span>{/if}
+			</div>
+			<h3>
+				<Link href={resolve('/projects/[slug]', { slug: project.slug })} style="font-size: inherit"
+					>{project.title}</Link
+				>
+			</h3>
+			<p>{project.summary}</p>
+			<div class="links">
+				<AsciiLink
+					href={`/projects/${project.slug}/`}
+					label="Подробнее"
+				/>{#if primaryLink}<AsciiLink
+						href={primaryLink.href}
+						label={primaryLink.label}
+						external
+						subtle
+					/>{/if}
+			</div>
+			<div class="file-label" aria-hidden="true">└─ {project.slug}</div>
 		</div>
-		<h3><a href={resolve('/projects/[slug]', { slug: project.slug })}>{project.title}</a></h3>
-		<p>{project.summary}</p>
-		<div class="links">
-			<AsciiLink href={`/projects/${project.slug}/`} label="Подробнее" />{#if primaryLink}<AsciiLink
-					href={primaryLink.href}
-					label={primaryLink.label}
-					external
-					subtle
-				/>{/if}
-		</div>
-		<div class="file-label" aria-hidden="true">└─ {project.slug}</div>
-	</div>
+	</Panel>
 </article>
 
 <style>
 	article {
+		padding-block: 24px;
+	}
+	:global(.project-surface) {
 		display: grid;
 		grid-template-columns: 1fr 1fr;
 		gap: clamp(36px, 6vw, 86px);
 		align-items: center;
-		padding-block: 54px;
+		padding: clamp(18px, 3vw, 32px);
 	}
 	.cover-link {
 		display: block;
@@ -68,7 +81,7 @@
 		color: var(--muted);
 	}
 	.index {
-		color: var(--warm);
+		color: var(--accent);
 		font-size: 0.8rem;
 	}
 	h3 {
@@ -78,11 +91,11 @@
 		letter-spacing: -0.05em;
 		margin: 26px 0 19px;
 	}
-	h3 a {
+	h3 :global(a) {
 		text-decoration: none;
 	}
-	h3 a:hover {
-		color: var(--warm);
+	h3 :global(a:hover) {
+		color: var(--accent);
 	}
 	p {
 		font-size: 0.85rem;
@@ -103,10 +116,9 @@
 		margin-top: 36px;
 	}
 	@media (max-width: 700px) {
-		article {
+		:global(.project-surface) {
 			grid-template-columns: 1fr;
 			gap: 28px;
-			padding-block: 36px;
 		}
 		.reverse .cover-link,
 		.reverse .copy {
