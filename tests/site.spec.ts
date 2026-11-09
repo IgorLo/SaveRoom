@@ -9,6 +9,21 @@ test('catalog exposes four real projects and only available destinations', async
 	await expect(page.getByRole('heading', { name: 'Привет, я Игорь.', exact: true })).toBeVisible();
 	await expect(page.getByRole('link', { name: 'Save Room — главная' })).toBeVisible();
 	await expect(page.locator('.ascii-theme')).toHaveAttribute('data-palette', 'phosphor');
+	const background = page.locator('.room-background canvas');
+	await expect(background).toHaveAttribute('aria-hidden', 'true');
+	await expect
+		.poll(() =>
+			background.evaluate((canvas) => (canvas instanceof HTMLCanvasElement ? canvas.width : 0))
+		)
+		.toBeGreaterThan(0);
+	await page.evaluate(() => window.scrollTo(0, 500));
+	expect(
+		await background.evaluate((canvas) => Math.round(canvas.getBoundingClientRect().top))
+	).toBe(0);
+	await page.evaluate(() => window.scrollTo(0, 0));
+	await page.getByRole('button', { name: 'Остановить фон' }).click();
+	await expect(page.getByRole('button', { name: 'Включить фон' })).toBeVisible();
+	await page.getByRole('button', { name: 'Включить фон' }).click();
 	await expect(page.locator('article.project-card .aui-frame')).toHaveCount(4);
 	await expect(page.locator('article.project-card .aui-button')).toHaveCount(4);
 	await expect(page.getByText('МОИ ПРОЕКТЫ', { exact: true })).toBeVisible();

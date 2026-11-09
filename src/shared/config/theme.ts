@@ -9,3 +9,5 @@ export const roomColors = {
 	danger: '#e6a4a0',
 	warning: '#d4a56c'
 } satisfies ThemeColors;
+
+export const roomBackgroundColor = '#dec7a5';
