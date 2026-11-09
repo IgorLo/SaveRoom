@@ -25,6 +25,6 @@
 	}
 	h1 {
 		font-size: clamp(1.8rem, 4vw, 3rem);
-		font-weight: 500;
+		font-weight: 600;
 	}
 </style>

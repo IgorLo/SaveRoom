@@ -2,6 +2,10 @@ import { expect, test } from '@playwright/test';
 
 test('catalog exposes four real projects and only available destinations', async ({ page }) => {
 	await page.goto('/');
+	expect(
+		await page.evaluate(async () => (await document.fonts.load('400 16px Monocraft')).length)
+	).toBeGreaterThan(0);
+	await expect(page.locator('.ascii-theme')).toHaveCSS('background-color', 'rgb(23, 18, 15)');
 	await expect(page.getByRole('heading', { name: 'Привет, я Игорь.', exact: true })).toBeVisible();
 	await expect(page.getByRole('link', { name: 'Save Room — главная' })).toBeVisible();
 	await expect(page.locator('.ascii-theme')).toHaveAttribute('data-palette', 'phosphor');

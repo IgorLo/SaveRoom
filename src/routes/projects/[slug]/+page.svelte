@@ -70,7 +70,7 @@
 		font-size: clamp(2rem, 5vw, 3.7rem);
 		line-height: 1.2;
 		letter-spacing: -0.065em;
-		font-weight: 500;
+		font-weight: 600;
 		margin: 24px 0;
 	}
 	.meta {

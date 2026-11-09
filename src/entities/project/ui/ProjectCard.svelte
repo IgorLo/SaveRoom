@@ -86,7 +86,7 @@
 	}
 	h3 {
 		font-size: clamp(1.45rem, 2.5vw, 2rem);
-		font-weight: 500;
+		font-weight: 600;
 		line-height: 1.35;
 		letter-spacing: -0.05em;
 		margin: 26px 0 19px;

@@ -1,12 +1,9 @@
-@import '@fontsource/ibm-plex-mono/cyrillic-400.css';
-@import '@fontsource/ibm-plex-mono/latin-400.css';
-@import '@fontsource/ibm-plex-mono/cyrillic-500.css';
-@import '@fontsource/ibm-plex-mono/latin-500.css';
+@import 'svelte-ascii-ui/fonts.css';
 
 :root {
-	font-family: 'IBM Plex Mono', monospace;
-	color: #e5d6be;
-	background: #242522;
+	font-family: 'Monocraft', monospace;
+	color: #efddbd;
+	background: #17120f;
 	font-synthesis: none;
 	color-scheme: dark;
 }
@@ -99,7 +96,7 @@ img {
 .wordmark {
 	text-decoration: none;
 	font-size: 0.88rem;
-	font-weight: 500;
+	font-weight: 600;
 }
 .wordmark span {
 	color: var(--warning);

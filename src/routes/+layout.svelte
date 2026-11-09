@@ -7,7 +7,7 @@
 	let { children }: { children: Snippet } = $props();
 </script>
 
-<Theme colors={roomColors} font="'IBM Plex Mono', monospace">
+<Theme colors={roomColors}>
 	<a href="#main" class="skip-link">К содержимому</a>
 	<div class="shell">
 		<header class="site-header">
