@@ -3,8 +3,7 @@
 	"slug": "dog-day-afternoon",
 	"title": "Dog Day Afternoon",
 	"summary": "Личный бюджет с взглядом в будущее: расходы, капитал и прогноз накоплений. Чтобы понять, куда уходят деньги и когда хватит на важное.",
-	"publishedAt": "2026-11-05",
-	"order": 2,
+	"order": 4,
 	"pinned": false,
 	"cover": {
 		"src": "/images/projects/dog-day-afternoon/cover.webp",

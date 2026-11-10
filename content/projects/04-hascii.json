@@ -1,26 +1,37 @@
 {
-	"id": "glyph-lab",
-	"slug": "glyph-lab",
-	"title": "GLYPH/LAB",
+	"id": "hascii",
+	"slug": "hascii",
+	"title": "HASCII",
 	"summary": "Лаборатория цифрового арта. Превращаю картинки в цветные символы, пиксели и ретропалитры — прямо в браузере.",
-	"publishedAt": "2026-11-05",
-	"order": 4,
+	"createdAt": "2026-11-09",
+	"order": 2,
 	"pinned": false,
 	"cover": {
-		"src": "/images/projects/glyph-lab/cover.webp",
-		"alt": "Обложка лаборатории ASCII-графики GLYPH/LAB",
-		"width": 1000,
-		"height": 1000
+		"src": "/images/projects/hascii/cover.png",
+		"alt": "Хаски в цветном ASCII — знак проекта HASCII",
+		"width": 900,
+		"height": 656
 	},
-	"links": [],
+	"links": [
+		{
+			"kind": "project",
+			"label": "Открыть проект",
+			"href": "https://hascii.vercel.app/"
+		},
+		{
+			"kind": "source",
+			"label": "GitHub",
+			"href": "https://github.com/IgorLo/hascii"
+		}
+	],
 	"body": [
 		{
 			"type": "paragraph",
-			"text": "GLYPH/LAB — браузерная лаборатория цифрового арта. Она превращает фотографии и иллюстрации в цветной ASCII, пиксельную графику и изображения с ограниченной палитрой."
+			"text": "HASCII (раньше GLYPH/LAB) — браузерная лаборатория цифрового арта. Она превращает фотографии и иллюстрации в цветной ASCII, пиксельную графику и изображения с ограниченной палитрой."
 		},
 		{
 			"type": "image",
-			"src": "/images/projects/glyph-lab/pixel.webp",
+			"src": "/images/projects/hascii/pixel.webp",
 			"alt": "Пикселизация изображения с ограниченной палитрой и Bayer-дизерингом",
 			"caption": "Пиксели, ограниченная палитра и дизеринг.",
 			"width": 1536,
@@ -36,7 +47,7 @@
 		},
 		{
 			"type": "image",
-			"src": "/images/projects/glyph-lab/ascii.webp",
+			"src": "/images/projects/hascii/ascii.webp",
 			"alt": "Изображение, преобразованное в цветные ASCII-символы",
 			"caption": "Цветной ASCII — ещё один способ смотреть на знакомое изображение.",
 			"width": 1536,
@@ -44,7 +55,7 @@
 		},
 		{
 			"type": "image",
-			"src": "/images/projects/glyph-lab/background.webp",
+			"src": "/images/projects/hascii/background.webp",
 			"alt": "ASCII-символы поверх мягкого пиксельного фона",
 			"caption": "Текстовая фактура и мягкий фон вместе.",
 			"width": 1536,

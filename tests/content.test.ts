@@ -5,13 +5,18 @@ import { mkdtemp, mkdir, writeFile, rm } from 'node:fs/promises';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 
-function record(slug = 'sample', publishedAt = '2026-11-05', pinned = false, order = 0) {
+function record(
+	slug = 'sample',
+	createdAt: string | null = '2026-11-05',
+	pinned = false,
+	order = 0
+) {
 	return {
 		id: slug,
 		slug,
 		title: 'Проект',
 		summary: 'Описание проекта',
-		publishedAt,
+		...(createdAt ? { createdAt } : {}),
 		pinned,
 		order,
 		cover: { src: '/images/projects/sample/cover.webp', alt: 'Обложка проекта' },
@@ -31,23 +36,26 @@ describe('publication catalog', () => {
 		];
 		expect(parseCatalog([{ ...input, body: blocks }])[0]?.links).toEqual([]);
 	});
-	it('sorts pinned first, then dates and stable tie-breakers without mutating input', () => {
+	it('sorts by editorial order or newest creation date and keeps undated projects last', () => {
 		const items = parseCatalog([
-			record('same-b', '2026-10-01'),
-			record('new'),
-			record('pinned-old', '2020-01-01', true),
-			record('same-a', '2026-10-01')
+			record('new', '2026-10-01', false, 2),
+			record('undated', null, false, 0),
+			record('old', '2020-01-01', false, 1)
 		]);
-		expect(sortProjects(items).map((p) => p.slug)).toEqual([
-			'pinned-old',
-			'new',
-			'same-a',
-			'same-b'
-		]);
-		expect(items[0]?.slug).toBe('same-b');
+		expect(sortProjects(items, 'author').map((p) => p.slug)).toEqual(['old', 'new', 'undated']);
+		expect(sortProjects(items, 'date').map((p) => p.slug)).toEqual(['new', 'old', 'undated']);
+		expect(items.map((p) => p.slug)).toEqual(['new', 'undated', 'old']);
 	});
-	it.each(['2026-02-30', '2026-13-01', 'not-a-date'])('rejects invalid date %s', (publishedAt) => {
-		expect(() => parseCatalog([{ ...record(), publishedAt }])).toThrow(/publishedAt/);
+	it('keeps pinned dated projects at the front of both orders', () => {
+		const items = parseCatalog([
+			record('new', '2026-10-01', false, 1),
+			record('pinned', '2020-01-01', true, 2)
+		]);
+		expect(sortProjects(items, 'author')[0]?.slug).toBe('pinned');
+		expect(sortProjects(items, 'date')[0]?.slug).toBe('pinned');
+	});
+	it.each(['2026-02-30', '2026-13-01', 'not-a-date'])('rejects invalid date %s', (createdAt) => {
+		expect(() => parseCatalog([{ ...record(), createdAt }])).toThrow(/createdAt/);
 	});
 	it('rejects duplicate slugs and ids', () => {
 		expect(() => parseCatalog([record(), record()])).toThrow(/Duplicate/);

@@ -3,8 +3,8 @@
 	"slug": "dogs-go-to-heaven",
 	"title": "Все псы попадают в рай",
 	"summary": "А куда переехать людям? Сервис, который помогает сравнить 348 городов и найти место под свой бюджет, климат и ритм жизни.",
-	"publishedAt": "2026-11-05",
-	"order": 3,
+	"createdAt": "2026-09-27",
+	"order": 1,
 	"pinned": false,
 	"cover": {
 		"src": "/images/projects/dogs-go-to-heaven/cover.webp",
@@ -20,7 +20,7 @@
 		},
 		{
 			"kind": "source",
-			"label": "Исходники",
+			"label": "GitHub",
 			"href": "https://github.com/GameDevCompanyName/DogsGoToHeaven"
 		}
 	],

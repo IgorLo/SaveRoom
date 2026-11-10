@@ -3,8 +3,8 @@
 	"slug": "vda-everyday",
 	"title": "ВДА Ежедневник — бот",
 	"summary": "Немного поддержки каждый день. Telegram-бот, который сам публикует чтения и освобождает организаторов от ежедневной рутины.",
-	"publishedAt": "2026-11-05",
-	"order": 1,
+	"createdAt": "2026-10-24",
+	"order": 3,
 	"pinned": false,
 	"cover": {
 		"src": "/images/projects/vda-everyday/cover.webp",

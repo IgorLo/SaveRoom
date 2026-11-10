@@ -7,7 +7,8 @@
 	import { Link, Panel } from 'svelte-ascii-ui';
 	let { project, reverse, number }: { project: ProjectSummary; reverse: boolean; number: number } =
 		$props();
-	let primaryLink = $derived(project.links.find((link) => link.kind === 'project'));
+	let projectLink = $derived(project.links.find((link) => link.kind === 'project'));
+	let sourceLink = $derived(project.links.find((link) => link.kind === 'source'));
 </script>
 
 <article class={['project-card', { reverse }]} data-project={project.slug}>
@@ -20,9 +21,11 @@
 		>
 		<div class="copy">
 			<div class="meta">
-				<span class="index">/{String(number).padStart(2, '0')}</span><time
-					datetime={project.publishedAt}>{formatDate(project.publishedAt)}</time
-				>{#if project.pinned}<span>↑ закреплено</span>{/if}
+				<span class="index">/{String(number).padStart(2, '0')}</span>
+				{#if project.createdAt}<time datetime={project.createdAt} title="Дата первого коммита"
+						>создан {formatDate(project.createdAt)}</time
+					>{/if}
+				{#if project.pinned}<span>↑ закреплено</span>{/if}
 			</div>
 			<h3>
 				<Link href={resolve('/projects/[slug]', { slug: project.slug })} style="font-size: inherit"
@@ -34,14 +37,15 @@
 				<AsciiLink
 					href={`/projects/${project.slug}/`}
 					label="Подробнее"
-				/>{#if primaryLink}<AsciiLink
-						href={primaryLink.href}
-						label={primaryLink.label}
+				/>{#if projectLink}<AsciiLink
+						href={projectLink.href}
+						label={projectLink.label}
 						external
 						subtle
 					/>{/if}
+				{#if sourceLink}<AsciiLink href={sourceLink.href} label="GitHub" external subtle />{/if}
 			</div>
-			<div class="file-label" aria-hidden="true">└─ {project.slug}</div>
+			<div class="file-label" aria-hidden="true">└─ {project.id}</div>
 		</div>
 	</Panel>
 </article>

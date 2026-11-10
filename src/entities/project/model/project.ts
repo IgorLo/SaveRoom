@@ -35,13 +35,14 @@ export const projectSchema = z.strictObject({
 	slug,
 	title: text,
 	summary: text,
-	publishedAt: z
+	createdAt: z
 		.string()
 		.regex(/^\d{4}-\d{2}-\d{2}$/)
 		.refine((value) => {
 			const date = new Date(`${value}T00:00:00Z`);
 			return Number.isFinite(date.getTime()) && date.toISOString().slice(0, 10) === value;
-		}, 'Expected a real calendar date'),
+		}, 'Expected a real calendar date')
+		.optional(),
 	order: z.number().int().nonnegative(),
 	pinned: z.boolean(),
 	cover: imageSchema,

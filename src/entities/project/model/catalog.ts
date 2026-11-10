@@ -1,4 +1,6 @@
-import { projectSchema, type Project } from './project';
+import { projectSchema, type Project, type ProjectSummary } from './project';
+
+export type ProjectSort = 'author' | 'date';
 
 export function parseCatalog(input: unknown[]): Project[] {
 	const projects = input.map((value) => projectSchema.parse(value));
@@ -12,11 +14,17 @@ export function parseCatalog(input: unknown[]): Project[] {
 	return projects;
 }
 
-export function sortProjects(projects: readonly Project[]): Project[] {
+export function sortProjects<T extends ProjectSummary>(
+	projects: readonly T[],
+	mode: ProjectSort = 'author'
+): T[] {
 	return [...projects].sort(
 		(a, b) =>
+			Number(Boolean(b.createdAt)) - Number(Boolean(a.createdAt)) ||
 			Number(b.pinned) - Number(a.pinned) ||
-			b.publishedAt.localeCompare(a.publishedAt) ||
+			(mode === 'date'
+				? (b.createdAt ?? '').localeCompare(a.createdAt ?? '')
+				: a.order - b.order) ||
 			a.order - b.order ||
 			a.slug.localeCompare(b.slug)
 	);

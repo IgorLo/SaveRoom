@@ -26,9 +26,11 @@
 			<p class="eyebrow">ЗАПИСЬ ИЗ КОМНАТЫ СОХРАНЕНИЯ</p>
 			<h1>{data.project.title}</h1>
 			<div class="meta">
-				<span>Игорь</span><span aria-hidden="true">/</span><time datetime={data.project.publishedAt}
-					>{formatDate(data.project.publishedAt)}</time
-				>
+				<span>Игорь</span>
+				{#if data.project.createdAt}<span aria-hidden="true">/</span><time
+						datetime={data.project.createdAt}
+						title="Дата первого коммита">создан {formatDate(data.project.createdAt)}</time
+					>{/if}
 			</div>
 		</header>
 		<div class="article-cover"><ProjectCover image={data.project.cover} eager /></div>
@@ -39,6 +41,7 @@
 							href={link.href}
 							label={link.label}
 							external
+							subtle={link.kind === 'source'}
 						/>{/each}
 				</div>{/if}
 			<AsciiDivider label="СОХРАНЕНО" />

@@ -35,6 +35,33 @@ test('catalog exposes four real projects and only available destinations', async
 		await expect(page.getByText(removed, { exact: true })).toHaveCount(0);
 	}
 	await expect(page.locator('article.project-card')).toHaveCount(4);
+	await expect(page.locator('article.project-card').first()).toHaveAttribute(
+		'data-project',
+		'dogs-go-to-heaven'
+	);
+	expect(
+		await page
+			.locator('article.project-card')
+			.evaluateAll((cards) => cards.map((card) => card.getAttribute('data-project')))
+	).toEqual(['dogs-go-to-heaven', 'hascii', 'vda-everyday', 'dog-day-afternoon']);
+	await page.getByLabel('Сортировка').selectOption('date');
+	expect(
+		await page
+			.locator('article.project-card')
+			.evaluateAll((cards) => cards.map((card) => card.getAttribute('data-project')))
+	).toEqual(['hascii', 'vda-everyday', 'dogs-go-to-heaven', 'dog-day-afternoon']);
+	await expect(page.locator('article[data-project="dog-day-afternoon"] time')).toHaveCount(0);
+	for (const [slug, date] of [
+		['dogs-go-to-heaven', '2026-09-27'],
+		['hascii', '2026-11-09'],
+		['vda-everyday', '2026-10-24']
+	] as const) {
+		await expect(page.locator(`article[data-project="${slug}"] time`)).toHaveAttribute(
+			'datetime',
+			date
+		);
+	}
+	await page.getByLabel('Сортировка').selectOption('author');
 	await expect(page.getByRole('navigation', { name: 'Мои ссылки' }).getByRole('link')).toHaveCount(
 		5
 	);
@@ -43,9 +70,17 @@ test('catalog exposes four real projects and only available destinations', async
 		'_blank'
 	);
 	await expect(page.locator('a[href="https://dogs-go-to-heaven.vercel.app/"]')).toBeVisible();
-	for (const slug of ['dog-day-afternoon', 'glyph-lab']) {
-		await expect(page.locator(`article[data-project="${slug}"] a[target="_blank"]`)).toHaveCount(0);
+	for (const slug of ['dog-day-afternoon', 'vda-everyday']) {
+		await expect(
+			page.locator(`article[data-project="${slug}"] a[href^="https://github.com/"]`)
+		).toHaveCount(0);
 	}
+	for (const slug of ['dogs-go-to-heaven', 'hascii']) {
+		await expect(
+			page.locator(`article[data-project="${slug}"] a[href^="https://github.com/"]`)
+		).toHaveCount(1);
+	}
+	await expect(page.getByRole('heading', { name: 'HASCII' })).toBeVisible();
 	expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true);
 	await page.screenshot({ path: `artifacts/home-${test.info().project.name}.png`, fullPage: true });
 });
@@ -58,7 +93,7 @@ test('article opens in same tab, supports image viewing and keyboard return', as
 		.click();
 	await expect(page).toHaveURL(/\/projects\/dog-day-afternoon\//);
 	await expect(page.getByRole('heading', { name: 'Dog Day Afternoon', exact: true })).toBeVisible();
-	await expect(page.locator('time')).toHaveAttribute('datetime', '2026-11-05');
+	await expect(page.locator('time')).toHaveCount(0);
 	const trigger = page.getByRole('button', { name: /Увеличить: Обзор/ });
 	await expect(trigger).toBeEnabled();
 	await trigger.focus();
@@ -88,15 +123,23 @@ test('article opens in same tab, supports image viewing and keyboard return', as
 test('direct routes, metadata, 404 and long text remain usable', async ({ page }) => {
 	const errors: string[] = [];
 	page.on('pageerror', (error) => errors.push(error.message));
-	for (const slug of ['vda-everyday', 'dog-day-afternoon', 'dogs-go-to-heaven', 'glyph-lab']) {
+	for (const slug of ['vda-everyday', 'dog-day-afternoon', 'dogs-go-to-heaven', 'hascii']) {
 		const response = await page.goto(`/projects/${slug}/`);
 		expect(response?.status()).toBe(200);
 		await expect(page.locator('h1')).toBeVisible();
 		await expect(page.locator('main img').first()).toBeVisible();
 	}
-	await page.goto('/projects/glyph-lab/');
-	await expect(page).toHaveTitle(/GLYPH\/LAB/);
-	await expect(page.locator('meta[property="og:title"]')).toHaveAttribute('content', /GLYPH\/LAB/);
+	await page.goto('/projects/hascii/');
+	await expect(page).toHaveTitle(/HASCII/);
+	await expect(page.locator('meta[property="og:title"]')).toHaveAttribute('content', /HASCII/);
+	await expect(page.locator('time')).toHaveAttribute('datetime', '2026-11-09');
+	await expect(page.locator('.outlinks a[href="https://hascii.vercel.app/"]')).toHaveAttribute(
+		'target',
+		'_blank'
+	);
+	await expect(
+		page.locator('.outlinks a[href="https://github.com/IgorLo/hascii"]')
+	).toHaveAttribute('target', '_blank');
 	await page.locator('h1').evaluate((el) => {
 		el.textContent = 'Оченьдлинноеназваниепроекта'.repeat(8);
 	});
@@ -104,6 +147,8 @@ test('direct routes, metadata, 404 and long text remain usable', async ({ page }
 	expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true);
 	const response = await page.goto('/projects/not-a-project/');
 	expect(response?.status()).toBe(404);
+	const oldAddress = await page.goto('/projects/glyph-lab/');
+	expect(oldAddress?.status()).toBe(404);
 	await expect(page.getByRole('link', { name: /Все проекты/ }).first()).toBeVisible();
 	expect(errors).toEqual([]);
 });
