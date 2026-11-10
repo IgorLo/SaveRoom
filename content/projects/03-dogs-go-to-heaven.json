@@ -7,10 +7,10 @@
 	"order": 1,
 	"pinned": false,
 	"cover": {
-		"src": "/images/projects/dogs-go-to-heaven/cover.webp",
+		"src": "/images/projects/dogs-go-to-heaven/cover.png",
 		"alt": "Обложка проекта Все псы попадают в рай",
-		"width": 1000,
-		"height": 1000
+		"width": 900,
+		"height": 900
 	},
 	"links": [
 		{
@@ -26,16 +26,43 @@
 	],
 	"body": [
 		{
-			"type": "paragraph",
-			"text": "«Все псы попадают в рай» — мой сервис для выбора города для переезда. Он сравнивает 348 городов по стоимости жизни, климату, безопасности, легализации и другим важным параметрам."
+			"type": "image",
+			"src": "/images/projects/dogs-go-to-heaven/screen-01.png",
+			"alt": "Скриншот 1 проекта «Все псы попадают в рай»",
+			"width": 1842,
+			"height": 1348
 		},
 		{
 			"type": "image",
-			"src": "/images/projects/dogs-go-to-heaven/start.webp",
-			"alt": "Стартовый экран сервиса выбора города",
-			"caption": "Отправная точка для поиска своего места.",
-			"width": 1600,
-			"height": 1054
+			"src": "/images/projects/dogs-go-to-heaven/screen-02.png",
+			"alt": "Скриншот 2 проекта «Все псы попадают в рай»",
+			"width": 1835,
+			"height": 1349
+		},
+		{
+			"type": "image",
+			"src": "/images/projects/dogs-go-to-heaven/screen-03.png",
+			"alt": "Скриншот 3 проекта «Все псы попадают в рай»",
+			"width": 1819,
+			"height": 1348
+		},
+		{
+			"type": "image",
+			"src": "/images/projects/dogs-go-to-heaven/screen-04.png",
+			"alt": "Скриншот 4 проекта «Все псы попадают в рай»",
+			"width": 390,
+			"height": 852
+		},
+		{
+			"type": "image",
+			"src": "/images/projects/dogs-go-to-heaven/screen-05.png",
+			"alt": "Скриншот 5 проекта «Все псы попадают в рай»",
+			"width": 392,
+			"height": 852
+		},
+		{
+			"type": "paragraph",
+			"text": "«Все псы попадают в рай» — мой сервис для выбора города для переезда. Он сравнивает 348 городов по стоимости жизни, климату, безопасности, легализации и другим важным параметрам."
 		},
 		{
 			"type": "heading",
@@ -46,32 +73,8 @@
 			"text": "Можно выбрать готовый сценарий или настроить приоритеты под себя — рейтинг сразу пересчитается."
 		},
 		{
-			"type": "image",
-			"src": "/images/projects/dogs-go-to-heaven/quiz.webp",
-			"alt": "Настройка предпочтений для выбора города",
-			"caption": "Важные именно тебе критерии меняют результат.",
-			"width": 1600,
-			"height": 1054
-		},
-		{
 			"type": "paragraph",
 			"text": "На карте удобно искать варианты, в карточках — разбираться в их плюсах и минусах, а в сравнении — сопоставлять города между собой. Есть оценка бюджета и обзоры условий переезда для россиян."
-		},
-		{
-			"type": "image",
-			"src": "/images/projects/dogs-go-to-heaven/city.webp",
-			"alt": "Подробная карточка города с показателями",
-			"caption": "Город в деталях.",
-			"width": 1600,
-			"height": 1054
-		},
-		{
-			"type": "image",
-			"src": "/images/projects/dogs-go-to-heaven/compare.webp",
-			"alt": "Сравнение нескольких городов по выбранным критериям",
-			"caption": "Несколько вариантов рядом — выбирать немного проще.",
-			"width": 1600,
-			"height": 1054
 		}
 	]
 }
