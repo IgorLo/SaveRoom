@@ -1,5 +1,6 @@
 import { error } from '@sveltejs/kit';
 import { getProject, getProjects } from '@/entities/project/server';
+import { getSiteOrigin } from '@/shared/lib/site-origin.server';
 import type { EntryGenerator, PageServerLoad } from './$types';
 
 export const entries: EntryGenerator = async () =>
@@ -9,8 +10,6 @@ export const load: PageServerLoad = async ({ params, url }) => {
 	if (!project) error(404, 'Такого проекта здесь пока нет');
 	return {
 		project,
-		origin:
-			process.env.PUBLIC_SITE_URL ||
-			(process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : url.origin)
+		origin: getSiteOrigin(url)
 	};
 };

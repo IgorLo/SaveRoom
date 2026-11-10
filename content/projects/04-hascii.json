@@ -4,7 +4,7 @@
 	"title": "HASCII",
 	"summary": "Лаборатория цифрового арта. Превращаю картинки в цветные символы, пиксели и ретропалитры — прямо в браузере.",
 	"createdAt": "2026-11-09",
-	"order": 2,
+	"order": 1,
 	"pinned": false,
 	"cover": {
 		"src": "/images/projects/hascii/cover.png",
@@ -26,20 +26,6 @@
 	],
 	"body": [
 		{
-			"type": "image",
-			"src": "/images/projects/hascii/mobile.png",
-			"alt": "Мобильный скриншот интерфейса HASCII",
-			"width": 387,
-			"height": 852
-		},
-		{
-			"type": "image",
-			"src": "/images/projects/hascii/desktop.png",
-			"alt": "Десктопный скриншот интерфейса HASCII",
-			"width": 1682,
-			"height": 1342
-		},
-		{
 			"type": "paragraph",
 			"text": "HASCII (раньше GLYPH/LAB) — браузерная лаборатория цифрового арта. Она превращает фотографии и иллюстрации в цветной ASCII, пиксельную графику и изображения с ограниченной палитрой."
 		},
@@ -57,7 +43,21 @@
 		},
 		{
 			"type": "paragraph",
-			"text": "Публичная версия и репозиторий появятся позже. Пока здесь — небольшой взгляд на лабораторию изнутри."
+			"text": "Публичную версию и исходники можно открыть по ссылкам ниже."
+		},
+		{
+			"type": "image",
+			"src": "/images/projects/hascii/mobile.png",
+			"alt": "Мобильный скриншот интерфейса HASCII",
+			"width": 387,
+			"height": 852
+		},
+		{
+			"type": "image",
+			"src": "/images/projects/hascii/desktop.png",
+			"alt": "Десктопный скриншот интерфейса HASCII",
+			"width": 1682,
+			"height": 1342
 		}
 	]
 }

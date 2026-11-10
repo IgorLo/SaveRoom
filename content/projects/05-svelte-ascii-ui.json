@@ -1,0 +1,69 @@
+{
+	"id": "svelte-ascii-ui",
+	"slug": "svelte-ascii-ui",
+	"title": "Svelte ASCII UI",
+	"summary": "Дизайн-система для Svelte 5 в ASCII-стиле: рамки, формы, навигация, темы и фоновые эффекты.",
+	"createdAt": "2026-11-08",
+	"order": 2,
+	"pinned": false,
+	"cover": {
+		"src": "/images/projects/svelte-ascii-ui/cover.png",
+		"alt": "Обложка Svelte ASCII UI с примерами компонентов и названием библиотеки",
+		"width": 1254,
+		"height": 1254
+	},
+	"links": [
+		{
+			"kind": "project",
+			"label": "npm",
+			"href": "https://www.npmjs.com/package/svelte-ascii-ui"
+		},
+		{
+			"kind": "source",
+			"label": "GitHub",
+			"href": "https://github.com/IgorLo/svelte-ascii-ui"
+		}
+	],
+	"body": [
+		{
+			"type": "paragraph",
+			"text": "Svelte ASCII UI — библиотека компонентов для Svelte 5. Она помогает собирать интерфейсы из ASCII-рамок, пиксельных деталей и моноширинной типографики."
+		},
+		{
+			"type": "paragraph",
+			"text": "В ней есть кнопки, формы, навигация, диалоги и фоновые эффекты. Цветовые темы и размеры настраиваются, а примеры компонентов можно посмотреть в Storybook. Библиотека опубликована в npm."
+		},
+		{
+			"type": "image",
+			"src": "/images/projects/svelte-ascii-ui/actions.png",
+			"alt": "Кнопки и действия Svelte ASCII UI в теме Phosphor",
+			"caption": "Кнопки и действия · Phosphor",
+			"width": 480,
+			"height": 331
+		},
+		{
+			"type": "image",
+			"src": "/images/projects/svelte-ascii-ui/fields-and-filters.png",
+			"alt": "Поля ввода, поиск и фильтры Svelte ASCII UI в теме Paper",
+			"caption": "Поля и фильтры · Paper",
+			"width": 960,
+			"height": 614
+		},
+		{
+			"type": "image",
+			"src": "/images/projects/svelte-ascii-ui/choices-and-progress.png",
+			"alt": "Чекбоксы, переключатель, ползунки и индикатор прогресса",
+			"caption": "Выбор и прогресс · Phosphor",
+			"width": 960,
+			"height": 522
+		},
+		{
+			"type": "image",
+			"src": "/images/projects/svelte-ascii-ui/dialog.png",
+			"alt": "Окно подтверждения с кнопками отмены и удаления в теме Plum",
+			"caption": "Окно подтверждения · Plum",
+			"width": 600,
+			"height": 214
+		}
+	]
+}

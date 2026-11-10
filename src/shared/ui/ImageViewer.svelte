@@ -13,6 +13,7 @@
 	width={image.width}
 	height={image.height}
 	loading="lazy"
+	style="width: auto; max-width: 100%; max-height: 600px; margin-inline: auto;"
 	expandable
 	expandLabel={`Увеличить: ${image.alt}`}
 />

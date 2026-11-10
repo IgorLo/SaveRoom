@@ -1,4 +1,5 @@
 import { getProjects } from '@/entities/project/server';
+import { getSiteOrigin } from '@/shared/lib/site-origin.server';
 import type { PageServerLoad } from './$types';
 
 export const load: PageServerLoad = async ({ url }) => ({
@@ -15,7 +16,5 @@ export const load: PageServerLoad = async ({ url }) => ({
 			links
 		})
 	),
-	origin:
-		process.env.PUBLIC_SITE_URL ||
-		(process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : url.origin)
+	origin: getSiteOrigin(url)
 });

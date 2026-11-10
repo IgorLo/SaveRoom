@@ -1,9 +1,9 @@
 export const profile = {
 	name: 'Игорь',
-	greeting: 'Привет, я Игорь.',
+	greeting: 'Hello, world!',
 	description:
-		'Делаю штуки в интернете. Иногда полезные, иногда просто потому, что захотелось. Здесь собираю свои проекты, эксперименты и маленькие поводы для гордости.',
-	avatar: '/images/projects/vda-everyday/cover.webp',
+		'Привет, меня зовут Игорь. На этом сайте будет список моих проектов, которые я навайбкодил или сделал сам. Многие текста пока от нейронки, а не рукописные, так как я всё ещё работаю над этой страницей и еще не успел вкатиться в полноценный постинг. Welcome and have a nice life.',
+	avatar: '/images/profile/igor.png',
 	links: [
 		{ label: 'YouTube / Kokojamba', href: 'https://www.youtube.com/@KokojambaTV' },
 		{

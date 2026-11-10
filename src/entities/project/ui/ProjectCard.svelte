@@ -45,7 +45,6 @@
 					/>{/if}
 				{#if sourceLink}<AsciiLink href={sourceLink.href} label="GitHub" external subtle />{/if}
 			</div>
-			<div class="file-label" aria-hidden="true">└─ {project.id}</div>
 		</div>
 	</Panel>
 </article>
@@ -114,11 +113,6 @@
 		gap: 14px 24px;
 		margin-top: 28px;
 	}
-	.file-label {
-		font-size: 0.62rem;
-		color: #929380;
-		margin-top: 36px;
-	}
 	@media (max-width: 700px) {
 		:global(.project-surface) {
 			grid-template-columns: 1fr;
@@ -132,9 +126,6 @@
 		h3 {
 			margin-top: 18px;
 			font-size: 1.65rem;
-		}
-		.file-label {
-			margin-top: 24px;
 		}
 	}
 </style>
