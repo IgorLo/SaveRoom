@@ -11,3 +11,5 @@ export const roomColors = {
 } satisfies ThemeColors;
 
 export const roomBackgroundColor = '#dec7a5';
+
+export const roomScrollbarColors = `--muted:${roomColors.muted};--accent:${roomColors.accent}`;

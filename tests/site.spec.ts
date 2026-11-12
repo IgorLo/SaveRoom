@@ -1,11 +1,23 @@
-import { expect, test } from '@playwright/test';
+import { expect, test, type Page } from '@playwright/test';
+
+async function expectDocumentScrollbar(page: Page) {
+	const documentScrollbar = await page.evaluate(() => {
+		const scroller = document.documentElement;
+		return {
+			width: getComputedStyle(scroller, '::-webkit-scrollbar').width,
+			color: getComputedStyle(scroller, '::-webkit-scrollbar-thumb').backgroundColor
+		};
+	});
+	expect(documentScrollbar.width).toBe('6px');
+	expect(['rgb(188, 171, 146)', 'rgb(219, 183, 131)']).toContain(documentScrollbar.color);
+}
 
 test('catalog exposes five real projects and only available destinations', async ({ page }) => {
 	await page.goto('/');
 	expect(
 		await page.evaluate(async () => (await document.fonts.load('400 16px Monocraft')).length)
 	).toBeGreaterThan(0);
-	await expect(page.locator('.ascii-theme')).toHaveCSS('background-color', 'rgb(23, 18, 15)');
+	await expect(page.locator('body .ascii-theme')).toHaveCSS('background-color', 'rgb(23, 18, 15)');
 	await expect(page.getByRole('heading', { name: 'Hello, world!', exact: true })).toBeVisible();
 	const introText = await page.locator('.intro p').textContent();
 	await expect(page.locator('meta[name="description"]')).toHaveAttribute(
@@ -32,7 +44,7 @@ test('catalog exposes five real projects and only available destinations', async
 	const previewImageUrl = await page.locator('meta[property="og:image"]').getAttribute('content');
 	expect(new URL(previewImageUrl!).origin).toBe(new URL(canonicalUrl!).origin);
 	await expect(page.getByRole('link', { name: 'Save Room — главная' })).toBeVisible();
-	await expect(page.locator('.ascii-theme')).toHaveAttribute('data-palette', 'phosphor');
+	await expect(page.locator('body .ascii-theme')).toHaveAttribute('data-palette', 'phosphor');
 	const background = page.locator('.room-background canvas');
 	await expect(background).toHaveAttribute('aria-hidden', 'true');
 	await expect
@@ -40,7 +52,9 @@ test('catalog exposes five real projects and only available destinations', async
 			background.evaluate((canvas) => (canvas instanceof HTMLCanvasElement ? canvas.width : 0))
 		)
 		.toBeGreaterThan(0);
+	await expectDocumentScrollbar(page);
 	await page.evaluate(() => window.scrollTo(0, 500));
+	await expect.poll(() => page.evaluate(() => scrollY)).toBeGreaterThan(0);
 	expect(
 		await background.evaluate((canvas) => Math.round(canvas.getBoundingClientRect().top))
 	).toBe(0);
@@ -82,6 +96,10 @@ test('catalog exposes five real projects and only available destinations', async
 		'dogs-go-to-heaven',
 		'vda-everyday',
 		'dog-day-afternoon'
+	]);
+	await expect(page.getByLabel('Сортировка').getByRole('option')).toHaveText([
+		'По прикольности',
+		'По дате'
 	]);
 	await page.getByLabel('Сортировка').selectOption('date');
 	expect(
@@ -245,6 +263,7 @@ test('direct routes, metadata, 404 and long text remain usable', async ({ page }
 	expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true);
 	const response = await page.goto('/projects/not-a-project/');
 	expect(response?.status()).toBe(404);
+	await expectDocumentScrollbar(page);
 	const oldAddress = await page.goto('/projects/glyph-lab/');
 	expect(oldAddress?.status()).toBe(404);
 	await expect(page.getByRole('link', { name: /Все проекты/ }).first()).toBeVisible();

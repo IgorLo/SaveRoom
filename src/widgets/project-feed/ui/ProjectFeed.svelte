@@ -20,7 +20,13 @@
 		<div class="sort-control">
 			<label for="project-sort">Сортировка</label>
 			<div class="sort-select">
-				<Select id="project-sort" options={sortOptions} size="s" bind:value={sortBy} />
+				<Select
+					id="project-sort"
+					options={sortOptions}
+					size="s"
+					showPlaceholder={false}
+					bind:value={sortBy}
+				/>
 			</div>
 		</div>
 	</div>
