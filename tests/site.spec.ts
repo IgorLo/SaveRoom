@@ -12,6 +12,84 @@ async function expectDocumentScrollbar(page: Page) {
 	expect(['rgb(188, 171, 146)', 'rgb(219, 183, 131)']).toContain(documentScrollbar.color);
 }
 
+test('header music plays the supplied track and stays available while browsing', async ({
+	page
+}) => {
+	const audioRequests: string[] = [];
+	page.on('request', (request) => {
+		if (request.url().includes('/audio/')) audioRequests.push(request.url());
+	});
+	await page.goto('/');
+	const header = page.getByRole('banner');
+	const player = header.getByRole('region', { name: 'Музыкальный плеер' });
+	await expect(player).toBeVisible();
+	await expect(player.getByText('Result', { exact: false }).first()).toBeVisible();
+	expect(audioRequests.filter((url) => !url.endsWith('/audio/press.wav'))).toEqual([]);
+	await expect(header.getByRole('button', { name: 'Остановить фон' })).toHaveCount(0);
+	const play = player.getByRole('button', { name: 'Включить музыку', exact: true });
+	await play.focus();
+	await page.keyboard.press('Enter');
+	await expect(player.getByRole('button', { name: 'Приостановить музыку' })).toBeVisible();
+	await expect
+		.poll(() =>
+			player
+				.locator('audio')
+				.first()
+				.evaluate((audio: HTMLAudioElement) => audio.currentTime)
+		)
+		.toBeGreaterThan(0);
+	expect(
+		audioRequests.every((url) =>
+			['/audio/resident-evil-5-result.mp3', '/audio/press.wav'].includes(new URL(url).pathname)
+		)
+	).toBe(true);
+	await player.getByRole('button', { name: 'Открыть кассету' }).click();
+	const cassette = page.getByRole('dialog', { name: 'Музыкальный плеер' });
+	await expect(cassette).toBeVisible();
+	await expect
+		.poll(() =>
+			player
+				.locator('audio')
+				.nth(1)
+				.evaluate((audio: HTMLAudioElement) => audio.played.length)
+		)
+		.toBeGreaterThan(0);
+	await expect(cassette.getByRole('button', { name: 'Следующая песня' })).toBeDisabled();
+	await expect(cassette.getByRole('button', { name: 'Закрыть кассету' })).toBeFocused();
+	await page.screenshot({ path: `artifacts/music-cassette-${test.info().project.name}.png` });
+	await page.keyboard.press('Escape');
+	await expect(cassette).not.toBeVisible();
+	await expect(player.getByRole('button', { name: 'Открыть кассету' })).toBeFocused();
+	await expect(player.getByRole('button', { name: 'Приостановить музыку' })).toBeVisible();
+	await page
+		.locator('article[data-project="dog-day-afternoon"]')
+		.getByRole('link', { name: /Подробнее/ })
+		.click();
+	await expect(page).toHaveURL(/\/projects\/dog-day-afternoon\//);
+	await expect(player.getByRole('button', { name: 'Приостановить музыку' })).toBeVisible();
+	await page.getByRole('contentinfo').scrollIntoViewIfNeeded();
+	await expect.poll(async () => Math.round((await header.boundingBox())!.y)).toBe(0);
+	await expect(player).toBeInViewport();
+	const backgroundControl = page
+		.getByRole('contentinfo')
+		.getByRole('button', { name: 'Остановить фон' });
+	await backgroundControl.click();
+	await expect(
+		page.getByRole('contentinfo').getByRole('button', { name: 'Включить фон' })
+	).toBeVisible();
+	await expect(page.getByText('Побочные проекты. Настоящий интерес.')).toHaveCount(0);
+	await page.screenshot({ path: `artifacts/music-footer-${test.info().project.name}.png` });
+	await player.getByRole('button', { name: 'Приостановить музыку' }).click();
+	await expect(play).toBeVisible();
+	expect(
+		await player
+			.locator('audio')
+			.first()
+			.evaluate((audio: HTMLAudioElement) => audio.paused)
+	).toBe(true);
+	expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true);
+});
+
 test('catalog exposes five real projects and only available destinations', async ({ page }) => {
 	await page.goto('/');
 	expect(
